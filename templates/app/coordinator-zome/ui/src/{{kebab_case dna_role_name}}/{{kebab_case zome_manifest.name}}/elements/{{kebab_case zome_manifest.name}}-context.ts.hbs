@@ -2,7 +2,7 @@ import { css, html, LitElement } from 'lit';
 import { provide, consume } from '@lit/context';
 import { customElement, property } from 'lit/decorators.js';
 import { AppClient } from '@holochain/client';
-import { appClientContext } from '@tnesh-stack/elements';
+import { appClientContext } from '@darksoil-studio/holochain-elements';
 
 import { {{camel_case zome_manifest.name}}StoreContext } from '../context.js';
 import { {{pascal_case zome_manifest.name}}Store } from '../{{kebab_case zome_manifest.name}}-store.js';

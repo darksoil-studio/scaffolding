@@ -75,7 +75,7 @@ fn internal_main() -> Result<()> {
 
     println!(
         "{}",
-        format!("Successfully scaffolded the {name} TNESH zome").green()
+        format!("Successfully scaffolded the {name} zome module").green()
     );
 
     Ok(())

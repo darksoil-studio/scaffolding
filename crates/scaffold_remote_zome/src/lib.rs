@@ -596,7 +596,7 @@ lineage: []
     nixpkgs.follows = "holonix/nixpkgs";
 
     holonix.url = "github:holochain/holonix";
-    tnesh-stack.url = "github:darksoil-studio/tnesh-stack/main-0.5";
+    scaffolding.url = "github:darksoil-studio/scaffolding/main-0.5";
   };
 
   outputs = inputs @ { ... }:
@@ -621,7 +621,7 @@ lineage: []
         }: {
           devShells.default = pkgs.mkShell {
             inputsFrom = [ 
-              inputs'.tnesh-stack.devShells.synchronized-pnpm
+              inputs'.scaffolding.devShells.synchronized-pnpm
               inputs'.holonix.devShells.default
             ];
           };
@@ -642,7 +642,7 @@ lineage: []
     , system
     , ...
     }: {
-  	  packages.my_dna = inputs.tnesh-stack.outputs.builders.${system}.dna {
+  	  packages.my_dna = inputs.holochain-nix-builders.outputs.builders.${system}.dna {
         dnaManifest = ./dna.yaml;
         zomes = {
           profiles_integrity = inputs'.profiles-zome.packages.profiles_integrity;
@@ -650,7 +650,7 @@ lineage: []
         };
       };
 
-  	  packages.another_dna = inputs.tnesh-stack.outputs.builders.${system}.dna {
+  	  packages.another_dna = inputs.holochain-nix-builders.outputs.builders.${system}.dna {
         dnaManifest = ./workdir/dna.yaml;
         zomes = {
         };
@@ -662,7 +662,7 @@ lineage: []
 
         assert_eq!(
             file_content(&repo, PathBuf::from("packages/package1/app.js").as_path()).unwrap(),
-            r#"import '@tnesh-stack/elements/dist/elements/app-client-context.js';
+            r#"import '@darksoil-studio/holochain-elements/dist/elements/app-client-context.js';
 import '@darksoil-studio/profiles-zome/dist/elements/profiles-context.js';
 
 export class App {
@@ -761,7 +761,7 @@ lineage: []
     nixpkgs.follows = "holonix/nixpkgs";
 
     holonix.url = "github:holochain/holonix";
-    tnesh-stack.url = "github:darksoil-studio/tnesh-stack/main-0.5";
+    holochain-nix-builders.url = "github:darksoil-studio/holochain-nix-builders/main-0.5";
   };
 
   outputs = inputs @ { ... }:
@@ -786,7 +786,7 @@ lineage: []
         }: {
           devShells.default = pkgs.mkShell {
             inputsFrom = [ 
-              inputs'.tnesh-stack.devShells.synchronized-pnpm
+              inputs'.scaffolding.devShells.synchronized-pnpm
               inputs'.holonix.devShells.default
             ];
           };
@@ -807,7 +807,7 @@ lineage: []
     , system
     , ...
     }: {
-  	  packages.my_dna = inputs.tnesh-stack.outputs.builders.${system}.dna {
+  	  packages.my_dna = inputs.holochain-nix-builders.outputs.builders.${system}.dna {
         dnaManifest = ./dna.yaml;
         zomes = {
           profiles_integrity = inputs'.profiles-zome.packages.profiles_integrity;
@@ -815,7 +815,7 @@ lineage: []
         };
       };
 
-  	  packages.another_dna = inputs.tnesh-stack.outputs.builders.${system}.dna {
+  	  packages.another_dna = inputs.holochain-nix-builders.outputs.builders.${system}.dna {
         dnaManifest = ./workdir/dna.yaml;
         zomes = {
         };
@@ -827,7 +827,7 @@ lineage: []
 
         assert_eq!(
             file_content(&repo, PathBuf::from("ui/app.js").as_path()).unwrap(),
-            r#"import '@tnesh-stack/elements/dist/elements/app-client-context.js';
+            r#"import '@darksoil-studio/holochain-elements/dist/elements/app-client-context.js';
 import '@darksoil-studio/profiles-zome/dist/elements/profiles-context.js';
 
 export class App {
@@ -882,7 +882,7 @@ lineage: []
     nixpkgs.follows = "holonix/nixpkgs";
 
     holonix.url = "github:holochain/holonix";
-    tnesh-stack.url = "github:darksoil-studio/tnesh-stack/main-0.5";
+    scaffolding.url = "github:darksoil-studio/scaffolding/main-0.5";
   };
 
   outputs = inputs @ { ... }:
@@ -907,7 +907,7 @@ lineage: []
         }: {
           devShells.default = pkgs.mkShell {
             inputsFrom = [ 
-              inputs'.tnesh-stack.devShells.synchronized-pnpm
+              inputs'.scaffolding.devShells.synchronized-pnpm
               inputs'.holonix.devShells.default
             ];
           };
@@ -929,13 +929,13 @@ lineage: []
     , system
     , ...
     }: {
-  	  packages.my_dna = inputs.tnesh-stack.outputs.builders.${system}.dna {
+  	  packages.my_dna = inputs.holochain-nix-builders.outputs.builders.${system}.dna {
         dnaManifest = ./dna.yaml;
         zomes = {
         };
       };
 
-  	  packages.another_dna = inputs.tnesh-stack.outputs.builders.${system}.dna {
+  	  packages.another_dna = inputs.holochain-nix-builders.outputs.builders.${system}.dna {
         dnaManifest = ./workdir/dna.yaml;
         zomes = {
         };
@@ -947,7 +947,7 @@ lineage: []
     }
 
     fn empty_app_js() -> String {
-        r#"import '@tnesh-stack/elements/dist/elements/app-client-context.js';
+        r#"import '@darksoil-studio/holochain-elements/dist/elements/app-client-context.js';
 
 export class App {
 

@@ -5,7 +5,7 @@
     nixpkgs.follows = "holonix/nixpkgs";
 
     holonix.url = "github:holochain/holonix";
-    tnesh-stack.url = "path:../../..";
+    scaffolding.url = "path:../../..";
     profiles-zome.url = "github:darksoil-studio/profiles-zome/main-0.5";
     file-storage.url = "github:darksoil-studio/file-storage/main-0.5";
   };

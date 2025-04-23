@@ -5,14 +5,14 @@ DIR=$(pwd)
 
 nix shell --accept-flake-config .#hc-scaffold-happ --command bash -c "
 cd /tmp
-rm -rf forum-lit-tnesh
+rm -rf forum-lit-scaffolding
 
-hc-scaffold web-app forum-lit-tnesh --package-manager pnpm
+hc-scaffold web-app forum-lit-scaffolding --package-manager pnpm
 "
 
-cd /tmp/forum-lit-tnesh
+cd /tmp/forum-lit-scaffolding
 
-nix develop --no-update-lock-file --accept-flake-config --override-input tnesh-stack "path:$DIR" --command bash -c "
+nix develop --no-update-lock-file --accept-flake-config --override-input scaffolding "path:$DIR" --command bash -c "
 set -e
 
 hc-scaffold dna forum 

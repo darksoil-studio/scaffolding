@@ -14,7 +14,7 @@ use thiserror::Error;
 static TEMPLATE: Dir<'static> = include_dir!("$CARGO_MANIFEST_DIR/template");
 
 #[derive(Error, Debug)]
-pub enum ScaffoldTneshZomeError {
+pub enum ScaffoldZomeModuleError {
     #[error(transparent)]
     RenderError(#[from] RenderError),
 
@@ -44,7 +44,7 @@ pub fn scaffold_zome_module(
     npm_organization: Option<String>,
     github_organization: Option<String>,
     cachix_cache: Option<String>,
-) -> Result<(String, FileTree), ScaffoldTneshZomeError> {
+) -> Result<(String, FileTree), ScaffoldZomeModuleError> {
     let zome_name = match zome_name {
         Some(zome_name) => zome_name,
         None => Input::with_theme(&ColorfulTheme::default())

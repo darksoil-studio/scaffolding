@@ -3,9 +3,9 @@ import { assert, test } from "vitest";
 import { runScenario, dhtSync, pause } from '@holochain/tryorama';
 import { ActionHash, SignedActionHashed, Delete, Record } from '@holochain/client';
 import { decode } from '@msgpack/msgpack';
-import { EntryRecord } from '@tnesh-stack/utils';
-import { cleanNodeDecoding } from '@tnesh-stack/utils/dist/clean-node-decoding.js';
-import { toPromise } from '@tnesh-stack/signals';
+import { EntryRecord } from '@darksoil-studio/holochain-utils';
+import { cleanNodeDecoding } from '@darksoil-studio/holochain-utils/dist/clean-node-decoding.js';
+import { toPromise } from '@darksoil-studio/holochain-signals';
 
 import { {{pascal_case entry_type.name}} } from '../../../../ui/src/{{kebab_case dna_role_name}}/{{snake_case coordinator_zome_manifest.name}}/types.js';
 import { sample{{pascal_case entry_type.name}} } from '../../../../ui/src/{{kebab_case dna_role_name}}/{{snake_case coordinator_zome_manifest.name}}/mocks.js';

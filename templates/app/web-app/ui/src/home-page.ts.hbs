@@ -1,13 +1,13 @@
-import { Router, Routes, appClientContext } from "@tnesh-stack/elements";
-import { AsyncResult, SignalWatcher } from "@tnesh-stack/signals";
+import { Router, Routes, appClientContext } from "@darksoil-studio/holochain-elements";
+import { AsyncResult, SignalWatcher } from "@darksoil-studio/holochain-signals";
 import { LitElement, css, html } from "lit";
 import { customElement } from "lit/decorators.js";
-import { EntryRecord } from "@tnesh-stack/utils";
+import { EntryRecord } from "@darksoil-studio/holochain-utils";
 import { consume } from "@lit/context";
 import { msg } from "@lit/localize";
 import { AppClient } from '@holochain/client'
 
-import '@tnesh-stack/elements/dist/elements/display-error.js';
+import '@darksoil-studio/holochain-elements/dist/elements/display-error.js';
 import '@darksoil-studio/profiles-provider/dist/elements/profile-list-item.js';
 
 import { appStyles } from './app-styles.js';
@@ -21,7 +21,7 @@ export class HomePage extends SignalWatcher(LitElement) {
   renderContent() {
     return html`
       <span>TODO: replace this with the content of your app.</span>
-      <span>Maybe you want to import elements from one of the TNESH modules?</span>
+      <span>Maybe you want to import elements from one of the zome modules?</span>
     `;
   }
 

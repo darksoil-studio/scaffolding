@@ -5,15 +5,15 @@ DIR=$(pwd)
 
 nix shell --accept-flake-config .#scaffold-zome-module --command bash -c "
 cd /tmp
-rm -rf posts-tnesh
-mkdir posts-tnesh
-cd posts-tnesh
+rm -rf posts-scaffolding
+mkdir posts-scaffolding
+cd posts-scaffolding
 scaffold-zome-module --zome-name posts --github-organization darksoil-studio --cachix-cache darksoil-studio --npm-organization darksoil-studio 
 "
 
-cd /tmp/posts-tnesh/posts-zome
+cd /tmp/posts-scaffolding/posts-zome
 
-nix develop --no-update-lock-file --accept-flake-config --override-input tnesh-stack "path:$DIR" --command bash -c "
+nix develop --no-update-lock-file --accept-flake-config --override-input scaffolding "path:$DIR" --command bash -c "
 set -e
 
 hc-scaffold entry-type post --zome posts_integrity --reference-entry-hash false --crud crud --link-from-original-to-each-update true --fields title:String:TextField,needs:Vec\<String\>:TextField

@@ -8,8 +8,8 @@ import {
   deletesForEntrySignal,
   pipe,
   AsyncComputed
-} from "@tnesh-stack/signals";
-import { slice, HashType, retype, EntryRecord, MemoHoloHashMap } from "@tnesh-stack/utils";
+} from "@darksoil-studio/holochain-signals";
+import { slice, HashType, retype, EntryRecord, MemoHoloHashMap } from "@darksoil-studio/holochain-utils";
 import { NewEntryAction, Record, ActionHash, EntryHash, AgentPubKey } from '@holochain/client';
 
 import { {{pascal_case zome_manifest.name}}Client } from './{{kebab_case zome_manifest.name}}-client.js';
