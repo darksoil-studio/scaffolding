@@ -1,4 +1,4 @@
-name: "build-scaffold-tnesh-zome"
+name: "build-scaffold-zome-module"
 on:
   # Trigger the workflow on push or pull request,
   # but only for the main branch
@@ -8,7 +8,7 @@ on:
     branches: [ main, 'main-**' ]
 
 jobs:
-  build-scaffold-tnesh-zome:
+  build-scaffold-zome-module:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest, macos-13]
@@ -31,16 +31,16 @@ jobs:
         with:
           name: darksoil-studio
 
-      - name: Build scaffold-tnesh-zome
+      - name: Build scaffold-zome-module
         env:
           CACHIX_AUTH_TOKEN: "${{ secrets.DARKSOIL_CACHIX_AUTH_TOKEN }}"
         run: |
-          cachix watch-exec darksoil-studio -- nix build --no-update-lock-file --accept-flake-config -L .#scaffold-tnesh-zome
-          cachix push darksoil-studio $(nix path-info --json --accept-flake-config --no-warn-dirty .#scaffold-tnesh-zome | nix run nixpkgs#jq -- -r 'keys[0]')
+          cachix watch-exec darksoil-studio -- nix build --no-update-lock-file --accept-flake-config -L .#scaffold-zome-module
+          cachix push darksoil-studio $(nix path-info --json --accept-flake-config --no-warn-dirty .#scaffold-zome-module | nix run nixpkgs#jq -- -r 'keys[0]')
 
-      - name: Build scaffold-tnesh-zome
+      - name: Build scaffold-zome-module
         if: github.event_name != 'pull_request' && github.ref_name == 'main'
         env:
           CACHIX_AUTH_TOKEN: "${{ secrets.DARKSOIL_CACHIX_AUTH_TOKEN }}"
         run: |
-          cachix pin darksoil-studio scaffold-tnesh-zome $(nix path-info --json --accept-flake-config --no-warn-dirty .#scaffold-tnesh-zome | nix run nixpkgs#jq -- -r 'keys[0]')
+          cachix pin darksoil-studio scaffold-zome-module $(nix path-info --json --accept-flake-config --no-warn-dirty .#scaffold-zome-module | nix run nixpkgs#jq -- -r 'keys[0]')

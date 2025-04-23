@@ -103,7 +103,7 @@
       imports = [
         ./crates/scaffold_remote_zome/default.nix
         ./crates/sync_npm_rev_dependencies_with_nix/default.nix
-        ./crates/scaffold_tnesh_zome/default.nix
+        ./crates/scaffold_zome_module/default.nix
       ];
 
       systems = builtins.attrNames inputs.holonix.devShells;

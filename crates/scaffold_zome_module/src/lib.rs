@@ -32,14 +32,14 @@ pub enum ScaffoldTneshZomeError {
 }
 
 #[derive(Serialize, Deserialize, Debug)]
-struct ScaffoldTneshZomeData {
+struct ScaffoldZomeModuleData {
     zome_name: String,
     npm_organization: String,
     github_organization: String,
     cachix_cache: Option<String>,
 }
 
-pub fn scaffold_tnesh_zome(
+pub fn scaffold_zome_module(
     zome_name: Option<String>,
     npm_organization: Option<String>,
     github_organization: Option<String>,
@@ -96,7 +96,7 @@ pub fn scaffold_tnesh_zome(
         existing_file_tree,
         &h,
         &template_file_tree,
-        &ScaffoldTneshZomeData {
+        &ScaffoldZomeModuleData {
             zome_name: zome_name.clone(),
             npm_organization,
             github_organization,

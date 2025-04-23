@@ -1,16 +1,16 @@
 [package]
-name = "scaffold_tnesh_zome"
+name = "scaffold_zome_module"
 version = "0.1.0"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [lib]
-name = "scaffold_tnesh_zome"
+name = "scaffold_zome_module"
 path = "src/lib.rs"
 
 [[bin]]
-name = "scaffold-tnesh-zome"
+name = "scaffold-zome-module"
 path = "src/bin/main.rs"
 
 [dependencies]

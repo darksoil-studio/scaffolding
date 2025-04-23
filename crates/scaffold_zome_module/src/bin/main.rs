@@ -3,7 +3,7 @@ use build_fs_tree::{Build, MergeableFileSystemTree};
 use clap::Parser;
 use colored::Colorize;
 use git2::{IndexAddOption, Repository, RepositoryInitOptions};
-use scaffold_tnesh_zome::scaffold_tnesh_zome;
+use scaffold_zome_module::scaffold_zome_module;
 use std::{
     ffi::OsString,
     fs,
@@ -46,7 +46,7 @@ fn main() -> ExitCode {
 fn internal_main() -> Result<()> {
     let args = Args::parse();
 
-    let (name, file_tree) = scaffold_tnesh_zome(
+    let (name, file_tree) = scaffold_zome_module(
         args.zome_name,
         args.npm_organization,
         args.github_organization,

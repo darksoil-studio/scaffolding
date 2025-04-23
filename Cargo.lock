@@ -3119,7 +3119,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "scaffold_tnesh_zome"
+name = "scaffold_zome_module"
 version = "0.1.0"
 dependencies = [
  "anyhow",

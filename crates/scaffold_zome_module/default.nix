@@ -3,7 +3,7 @@
 {
   perSystem = { inputs', self', pkgs, system, lib, ... }: {
 
-    packages.scaffold-tnesh-zome = let
+    packages.scaffold-zome-module = let
       craneLib = inputs.crane.mkLib pkgs;
 
       cratePath = ./.;
@@ -18,7 +18,7 @@
         doCheck = false;
         buildInputs =
           inputs.holochain-nix-builders.dependencies.${system}.holochain.buildInputs;
-        cargoExtraArgs = "--locked --package scaffold_tnesh_zome";
+        cargoExtraArgs = "--locked --package scaffold_zome_module";
       };
     in craneLib.buildPackage (commonArgs // {
       pname = crate;
