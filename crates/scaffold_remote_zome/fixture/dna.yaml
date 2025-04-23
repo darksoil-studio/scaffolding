@@ -1,0 +1,11 @@
+---
+manifest_version: "1"
+name: profiles-test
+
+integrity:
+  network_seed: 00000000-0000-0000-0000-000000000000
+  properties: ~
+  zomes: []
+
+coordinator:
+  zomes: []

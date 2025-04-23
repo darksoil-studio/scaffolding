@@ -1,0 +1,55 @@
+name: Test app custom template
+on:
+  # Trigger the workflow on push or pull request,
+  # but only for the main branch
+  push: 
+    branches: [ main, 'main-**' ]
+  pull_request: 
+    branches: [ main, 'main-**' ]
+
+jobs:
+  test-app-template:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Maximize build space
+        uses: AdityaGarg8/remove-unwanted-software@v2
+        with:
+          remove-dotnet: "true"
+          remove-android: "true"
+          remove-codeql: "true"
+          remove-docker-images: "true"
+
+      - name: Install nix
+        uses: cachix/install-nix-action@v30
+        with:
+          install_url: https://releases.nixos.org/nix/nix-2.24.4/install
+          nix_path: nixpkgs=channel:nixos-24.11
+          github_access_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: cachix/cachix-action@v15
+        with:
+          name: holochain-ci
+
+      - uses: cachix/cachix-action@v15
+        with:
+          name: darksoil-studio
+
+      - uses: actions/checkout@v3
+
+      - name: Test app template
+        run: |
+          cachix watch-exec darksoil-studio -- sh templates/run_test_app.sh
+
+      - name: Build hc-scaffold-happ
+        env:
+          CACHIX_AUTH_TOKEN: "${{ secrets.DARKSOIL_CACHIX_AUTH_TOKEN }}"
+        run: |
+          cachix watch-exec darksoil-studio -- nix build --no-update-lock-file --accept-flake-config -L .#hc-scaffold-happ
+          cachix push darksoil-studio $(nix path-info --json --accept-flake-config --no-warn-dirty .#hc-scaffold-happ | nix run nixpkgs#jq -- -r 'keys[0]')
+
+      - name: Pin hc-scaffold-happ
+        if: github.event_name != 'pull_request' && github.ref_name == 'main'
+        env:
+          CACHIX_AUTH_TOKEN: "${{ secrets.DARKSOIL_CACHIX_AUTH_TOKEN }}"
+        run: |
+          cachix pin darksoil-studio hc-scaffold-happ $(nix path-info --json --accept-flake-config --no-warn-dirty .#hc-scaffold-happ | nix run nixpkgs#jq -- -r 'keys[0]')

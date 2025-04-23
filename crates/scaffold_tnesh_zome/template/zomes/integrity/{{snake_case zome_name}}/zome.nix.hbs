@@ -1,0 +1,15 @@
+{ inputs, ... }:
+
+{
+  perSystem =
+    { inputs'
+    , system
+    , ...
+    }: {
+      packages.{{snake_case zome_name}}_integrity = inputs.tnesh-stack.outputs.builders.${system}.rustZome {
+        workspacePath = inputs.self.outPath;
+        crateCargoToml = ./Cargo.toml;
+      };
+    };
+}
+

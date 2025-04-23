@@ -1,0 +1,27 @@
+{
+  "name": "{{app_name}}-dev",
+  "private": true,
+  "scripts": {
+    "start": "pnpm build:happ && UI_PORT=8888 concurrently -k \"pnpm -F ui start\" \"AGENTS=${AGENTS:-2} pnpm launch\" \"hc playground\"",
+    "launch": "concurrently-repeat  \"RUST_LOG=warn hc pilot workdir/{{app_name}}.happ --ui-port $UI_PORT\" $AGENTS",
+    "test": "pnpm build:happ && pnpm -F tests test",
+    "build:happ": "nix build -L .#{{app_name}}_happ.meta.debug -o workdir/{{app_name}}.happ",
+    "package": "nix build -L .#{{app_name}}_happ -o workdir/{{app_name}}.happ && pnpm -F ui package && hc web-app pack workdir"
+  },
+  "devDependencies": {
+    "@trivago/prettier-plugin-sort-imports": "^4.3.0",
+    "@eslint/js": "^9.0.0",
+    "concurrently": "^6.2.1",
+    "concurrently-repeat": "^0.0.1",
+    "eslint": "^9.0.0",
+    "eslint-config-prettier": "^9.1.0",
+    "new-port-cli": "^1.0.0",
+    "prettier": "^3.2.5",
+    "typescript-eslint": "^8.0.0",
+    "typescript": "^5.4.5"
+  },
+  "type": "module",
+  "engines": {
+    "pnpm": ">=9.0.0"
+  }
+}
