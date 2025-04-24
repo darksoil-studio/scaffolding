@@ -37,6 +37,8 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Test zome template
+        env:
+          CACHIX_AUTH_TOKEN: "${{ secrets.DARKSOIL_CACHIX_AUTH_TOKEN }}"
         run: |
           cachix watch-exec darksoil-studio -- sh templates/run_test_zome.sh
 
