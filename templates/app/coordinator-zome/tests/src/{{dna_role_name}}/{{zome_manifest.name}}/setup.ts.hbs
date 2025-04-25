@@ -50,7 +50,7 @@ async function promiseAllSequential<T>(
 }
 
 async function addPlayer(scenario: Scenario) {
-  const player = await scenario.addPlayerWithApp({ path: appPath });
+  const player = await scenario.addPlayerWithApp({ type: 'path', value: appPath });
 
   patchCallZome(player.appWs as AppWebsocket);
   await player.conductor
