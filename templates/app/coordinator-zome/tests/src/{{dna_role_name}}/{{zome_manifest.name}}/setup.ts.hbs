@@ -9,7 +9,6 @@ import {
   fakeAgentPubKey,
   fakeEntryHash,
   fakeDnaHash,
-  AppCallZomeRequest,
   AppWebsocket,
   encodeHashToBase64 
 } from '@holochain/client';
@@ -52,7 +51,6 @@ async function promiseAllSequential<T>(
 async function addPlayer(scenario: Scenario) {
   const player = await scenario.addPlayerWithApp({ type: 'path', value: appPath });
 
-  patchCallZome(player.appWs as AppWebsocket);
   await player.conductor
   	.adminWs()
   	.authorizeSigningCredentials(player.cells[0].cell_id);
@@ -71,26 +69,8 @@ async function addPlayer(scenario: Scenario) {
   	      installed_app_id: player.appId,
   	    });
   	  const appWs = await player.conductor.connectAppWs(issued.token, port);
-  	  patchCallZome(appWs);
   	  store.client.client = appWs;
   	},
-  };
-}
-
-function patchCallZome(appWs: AppWebsocket) {
-  const callZome = appWs.callZome;
-  appWs.callZome = async req => {
-    try {
-      const result = await callZome(req);
-      return result;
-    } catch (e) {
-      if (
-        !e.toString().includes('Socket is not open') &&
-        !e.toString().includes('ClientClosedWithPendingRequests')
-      ) {
-        throw e;
-      }
-    }
   };
 }
 
