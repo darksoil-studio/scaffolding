@@ -9,7 +9,6 @@ import {
   fakeAgentPubKey,
   fakeEntryHash,
   fakeDnaHash,
-  AppCallZomeRequest,
   AppWebsocket,
   encodeHashToBase64 
 } from '@holochain/client';
@@ -31,9 +30,6 @@ export async function setup(scenario: Scenario) {
     { appBundleSource: { type: 'path', value: testHappUrl } },
     { appBundleSource: { type: 'path', value: testHappUrl } },
   ]);
-
-  patchCallZome(alice.appWs as AppWebsocket);
-  patchCallZome(bob.appWs as AppWebsocket);
 
   // Shortcut peer discovery through gossip and register all agents in every
   // conductor of the scenario.
@@ -63,19 +59,3 @@ export async function setup(scenario: Scenario) {
   };
 }
 
-function patchCallZome(appWs: AppWebsocket) {
-  const callZome = appWs.callZome;
-  appWs.callZome = async req => {
-    try {
-      const result = await callZome(req);
-      return result;
-    } catch (e) {
-      if (
-        !e.toString().includes('Socket is not open') &&
-        !e.toString().includes('ClientClosedWithPendingRequests')
-      ) {
-        throw e;
-      }
-    }
-  };
-}
