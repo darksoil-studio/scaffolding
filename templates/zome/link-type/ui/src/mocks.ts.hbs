@@ -2,7 +2,7 @@
   {{#match_scope (concat "export class " (pascal_case coordinator_zome_manifest.name) "ZomeMock extends ZomeMock implements AppClient {" ) }}
   {{previous_scope_content}}
   
-{{#if to_referenceable.name}}
+{{#if to_referenceable}}
   /** {{title_case (plural to_referenceable.name)}} for {{title_case from_referenceable.name}} */
   {{camel_case from_referenceable.name}}To{{pascal_case to_referenceable.name}} = new HoloHashMap<{{from_referenceable.hash_type}}, Link[]>();
   {{#if bidirectional}}
