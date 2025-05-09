@@ -1,6 +1,7 @@
 {{#merge previous_file_content}}
   {{#match_scope (concat "export class " (pascal_case coordinator_zome_manifest.name) "Client extends ZomeClient<" (pascal_case coordinator_zome_manifest.name) "Signal> {" ) }}
   {{previous_scope_content}}
+{{#if to_referenceable}}
 
   /** {{title_case (plural to_referenceable.name)}} for {{title_case from_referenceable.name}} */
 
@@ -41,5 +42,18 @@
   }
       {{/if}}
     {{/if}}
+{{else}}
+
+  async get{{pascal_case (plural link_type_name)}}For{{pascal_case from_referenceable.name}}({{camel_case from_referenceable.singular_arg}}: {{from_referenceable.hash_type}}): Promise<Array<Link>> {
+    return this.callZome('get_{{snake_case (plural link_type_name)}}_for_{{snake_case from_referenceable.name}}', {{camel_case from_referenceable.singular_arg}});
+  }
+
+  add{{pascal_case link_type_name}}For{{pascal_case from_referenceable.name}}({{camel_case from_referenceable.singular_arg}}: {{from_referenceable.hash_type}}, {{camel_case link_type_name}}: string): Promise<void> {
+    return this.callZome('add_{{snake_case link_type_name}}_for_{{snake_case from_referenceable.name}}', {
+      {{snake_case from_referenceable.singular_arg}}: {{camel_case from_referenceable.singular_arg}},
+      {{snake_case link_type_name}}: {{camel_case to_referenceable.singular_arg}},
+    });
+  }
+{{/if}}
   {{/match_scope}}
 {{/merge}}
