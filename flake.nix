@@ -1,8 +1,7 @@
 {
   inputs = {
     holonix.url = "github:holochain/holonix/main-0.5";
-    holonix.inputs.hc-scaffold.url =
-      "github:holochain/scaffolding/chore/bump-to-0.5.0-dev.22";
+    holonix.inputs.hc-scaffold.url = "github:holochain/scaffolding/main";
 
     nixpkgs.follows = "holonix/nixpkgs";
     rust-overlay.follows = "holonix/rust-overlay";
