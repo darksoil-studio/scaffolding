@@ -2,6 +2,7 @@
   {{#match_scope (concat "export class " (pascal_case coordinator_zome_manifest.name) "ZomeMock extends ZomeMock implements AppClient {" ) }}
   {{previous_scope_content}}
   
+{{#if to_referenceable.name}}
   /** {{title_case (plural to_referenceable.name)}} for {{title_case from_referenceable.name}} */
   {{camel_case from_referenceable.name}}To{{pascal_case to_referenceable.name}} = new HoloHashMap<{{from_referenceable.hash_type}}, Link[]>();
   {{#if bidirectional}}
@@ -44,6 +45,28 @@
     return this.{{camel_case to_referenceable.name}}To{{pascal_case from_referenceable.name}}.get({{camel_case to_referenceable.singular_arg}}) || [];
   }
   {{/if}}
+{{else}}
+  /** {{title_case (plural link_type_name)}} for {{title_case from_referenceable.name}} */
+  {{camel_case (plural link_type_name)}}For{{title_case from_referenceable.name}} = new HoloHashMap<{{from_referenceable.hash_type}}, Link[]>();
+
+  async get_{{snake_case (plural link_type_name)}}_for_{{snake_case from_referenceable.name}}({{camel_case from_referenceable.singular_arg}}: {{from_referenceable.hash_type}}): Promise<Array<Link>> {
+    return this.{{camel_case (plural link_type_name)}}For{{title_case from_referenceable.name}}.get({{camel_case from_referenceable.singular_arg}}) || [];
+  }
+  
+  async add_{{snake_case link_type_name}}_for_{{snake_case from_referenceable.name}}(input: { {{snake_case from_referenceable.singular_arg}}: {{from_referenceable.hash_type}}; {{snake_case link_type_name}}: string }): Promise<void> {
+    const existing = this.{{camel_case from_referenceable.name}}To{{pascal_case to_referenceable.name}}.get(input.{{snake_case from_referenceable.singular_arg}}) || [];
+    this.{{camel_case (plural link_type_name)}}For{{title_case from_referenceable.name}}.set(input.{{snake_case from_referenceable.singular_arg}}, [...existing, {
+        base: input.{{snake_case from_referenceable.singular_arg}},
+        target: input.{{snake_case from_referenceable.singular_arg}}, 
+        author: this.myPubKey,
+        timestamp: Date.now() * 1000,
+        zome_index: 0,
+        link_type: 0,
+        tag: new TextEncoder().encode(input.{{snake_case link_type_name}}),
+        create_link_hash: await fakeActionHash()
+      }]);
+  }  
+{{/if}}
 
   {{/match_scope}}
 {{/merge}}
