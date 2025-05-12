@@ -2,7 +2,7 @@
   "name": "{{zome_name}}-dev",
   "private": true,
   "scripts": {
-    "start": "pnpm build:happ && UI_PORT=8888 concurrently -k \"pnpm -F @darksoil-studio/{{kebab_case app_name}} start\" \"AGENTS=${AGENTS:-2} pnpm launch\" \"hc playground\"",
+    "start": "pnpm build:happ && UI_PORT=8888 concurrently -k \"pnpm -F @darksoil-studio/{{kebab_case app_name}}-zome start\" \"AGENTS=${AGENTS:-2} pnpm launch\" \"hc playground\"",
     "launch": "concurrently-repeat  \"RUST_LOG=warn hc pilot workdir/{{zome_name}}_test.happ --ui-port $UI_PORT\" $AGENTS",
     "test": "pnpm build:happ && pnpm -F tests test",
     "build:happ": "nix build -L .#{{snake_case zome_name}}_test_happ.meta.debug -o workdir/{{zome_name}}_test.happ"
