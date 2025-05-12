@@ -1,3 +1,4 @@
+
 {{#merge previous_file_content}}
   {{#match_scope (concat "export class " (pascal_case coordinator_zome_manifest.name) "Store {" ) }}
     {{#if (includes previous_file_content (concat (camel_case (plural from_referenceable.name)) " = new MemoHoloHashMap((" (camel_case from_referenceable.name) "Hash: " from_referenceable.hash_type ") => ({" ) ) }}
