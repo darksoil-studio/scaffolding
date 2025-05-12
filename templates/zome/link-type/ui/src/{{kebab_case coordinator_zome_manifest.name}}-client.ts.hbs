@@ -51,7 +51,7 @@
   add{{pascal_case link_type_name}}For{{pascal_case from_referenceable.name}}({{camel_case from_referenceable.singular_arg}}: {{from_referenceable.hash_type}}, {{camel_case link_type_name}}: string): Promise<void> {
     return this.callZome('add_{{snake_case link_type_name}}_for_{{snake_case from_referenceable.name}}', {
       {{snake_case from_referenceable.singular_arg}}: {{camel_case from_referenceable.singular_arg}},
-      {{snake_case link_type_name}}: {{camel_case to_referenceable.singular_arg}},
+      {{snake_case link_type_name}}: {{camel_case link_type_name}},
     });
   }
 {{/if}}
