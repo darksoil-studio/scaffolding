@@ -46,7 +46,7 @@
         liveLinksSignal(
           this.client,
           {{camel_case from_referenceable.singular_arg}},
-          () => this.client.get{{pascal_case (plural to_referenceable.name)}}For{{pascal_case from_referenceable.name}}({{camel_case from_referenceable.singular_arg}}),
+          () => this.client.get{{#if to_referenceable}}{{pascal_case (plural to_referenceable.name)}}{{else}}{{pascal_case (plural link_type_name)}}{{/if}}For{{pascal_case from_referenceable.name}}({{camel_case from_referenceable.singular_arg}}),
           '{{link_type_name}}'
         ),
       {{#if to_referenceable}}
