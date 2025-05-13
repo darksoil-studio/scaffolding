@@ -13,7 +13,7 @@
             () => this.client.get{{#if to_referenceable}}{{pascal_case (plural to_referenceable.name)}}{{else}}{{pascal_case (plural link_type_name)}}{{/if}}For{{pascal_case from_referenceable.name}}({{camel_case from_referenceable.singular_arg}}),
             '{{link_type_name}}'
           ),
-      {{#if to_referencable}}
+      {{#if to_referenceable}}
         {{#if (eq to_referenceable.hash_type "AgentPubKey")}}
           links => links.map(l => retype(l.target, HashType.AGENT))
         {{else}}
@@ -30,7 +30,7 @@
             () => this.client.getDeleted{{#if to_referenceable}}{{pascal_case (plural to_referenceable.name)}}{{else}}{{pascal_case (plural link_type_name)}}{{/if}}For{{pascal_case from_referenceable.name}}({{camel_case from_referenceable.singular_arg}}),
             '{{link_type_name}}'
           ),
-      {{#if to_referencable}}
+      {{#if to_referenceable}}
         {{#if (eq to_referenceable.hash_type "AgentPubKey")}}
           links => links.map(l => retype(l[0].hashed.content.target_address, HashType.AGENT))
         {{else}}
