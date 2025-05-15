@@ -28,7 +28,6 @@ export const MOBILE_WIDTH_PX = 600;
 @customElement('holochain-app')
 export class HolochainApp extends SignalWatcher(LitElement) {
   @state() _loading = true;
-  @state() _view = { view: 'main' };
   @state() _error: unknown | undefined;
 
   _client!: AppClient;
