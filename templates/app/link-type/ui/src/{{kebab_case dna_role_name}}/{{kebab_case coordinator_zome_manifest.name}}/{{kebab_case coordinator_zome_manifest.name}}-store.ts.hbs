@@ -147,7 +147,7 @@
       links => slice(this.{{camel_case (plural to_referenceable.name)}}, links.map(l => l[0].hashed.content.target_address))
     {{/if}}
     ),
-  }{{else}}pipe(
+  }){{else}}pipe(
       liveLinksSignal(
         this.client,
         {{camel_case from_referenceable.singular_arg}},
