@@ -49,7 +49,7 @@ async function promiseAllSequential<T>(
 }
 
 async function addPlayer(scenario: Scenario) {
-  const player = await scenario.addPlayerWithApp({ type: 'path', value: appPath });
+  const player = await scenario.addPlayerWithApp({ appBundleSource: { type: 'path', value: appPath } });
 
   await player.conductor
   	.adminWs()
