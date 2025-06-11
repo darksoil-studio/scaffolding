@@ -1,0 +1,16 @@
+import './{{kebab_case dna_role_name}}/{{kebab_case coordinator_zome_manifest.name}}/elements/{{kebab_case collection_name}}.js';
+
+{{#merge previous_file_content}}
+  {{#match_scope "new Router(this, [" }}
+  {{previous_scope_content}}
+    {
+      path: "/{{kebab_case collection_name}}",
+      render: () => html`
+        <{{kebab_case collection_name}}
+          @{{kebab_case referenceable.name}}-selected=${(e: CustomEvent) => this.router.goto(`/{{kebab_case referenceable.name}}/${encodeHashToBase64(e.detail.{{camel_case referenceable.name}}Hash)}`)}
+        >
+        </{{kebab_case collection_name}}>
+      `,
+    },
+  {{/match_scope}}
+{{/merge}}

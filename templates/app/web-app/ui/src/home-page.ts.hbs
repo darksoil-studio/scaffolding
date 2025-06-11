@@ -18,12 +18,29 @@ export class HomePage extends SignalWatcher(LitElement) {
   @consume({ context: appClientContext })
   client!: AppClient;
 
-  renderContent() {
-    return html`
-      <span>TODO: replace this with the content of your app.</span>
-      <span>Maybe you want to import elements from one of the zome modules?</span>
-    `;
-  }
+  router = new Router(this, [
+    {
+      path: "/",
+      render: () => html`
+        <div class="column" style="flex: 1; align-items: center; justify-content: center;">
+          <span>TODO: replace this with the content of your app.</span>
+          <span>Maybe you want to import elements from one of the zome modules?</span>
+        </div>
+      `
+    },
+    {
+      path: "/my-profile",
+      render: () => html`<overlay-page
+          .title=${msg("My Profile")}
+          icon="back"
+          @close-requested=${() => this.router.goto('/')}
+        >
+          <sl-card>
+            <my-profile style="flex: 1"></my-profile>
+          </sl-card>
+        </overlay-page>`,
+    },
+  ]);
 
   render() {
     return html`
@@ -33,21 +50,13 @@ export class HomePage extends SignalWatcher(LitElement) {
 
           <div class="row" style="gap: 16px">
             <agent-avatar 
-              @click=${() =>
-                this.dispatchEvent(
-                  new CustomEvent('profile-clicked', {
-                    detail: true,
-                    composed: true,
-                  }),
-              )}
+              @click=${() => this.router.goto('/my-profile')}
               .agentPubKey=${this.client.myPubKey}
             ></agent-avatar>
           </div>
         </div>
 
-        <div class="column" style="flex: 1; align-items: center; justify-content: center;">
-          ${this.renderContent()}
-        </div>
+        ${this.router.outlet()}
       </div>
     `;
   }
