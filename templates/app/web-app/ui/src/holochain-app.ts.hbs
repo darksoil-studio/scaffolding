@@ -20,7 +20,6 @@ import '@darksoil-studio/profiles-provider/dist/elements/my-profile.js';
 import { isMobileContext } from './context.js';
 import { appStyles } from './app-styles.js';
 import './home-page.js';
-import './overlay-page.js';
 
 export const MOBILE_WIDTH_PX = 600;
 
@@ -31,35 +30,6 @@ export class HolochainApp extends SignalWatcher(LitElement) {
   @state() _error: unknown | undefined;
 
   _client!: AppClient;
-
-  router = new Router(this, [
-    {
-      path: "/",
-      enter: () => {
-        // Redirect to "/home/"
-        this.router.goto("/home/");
-        return false;
-      },
-    },
-    {
-      path: "/home/*",
-      render: () => html`<home-page
-          @profile-clicked=${() => this.router.goto('/my-profile')}
-        ></home-page>`,
-    },
-    {
-      path: "/my-profile",
-      render: () => html`<overlay-page
-          .title=${msg("My Profile")}
-          icon="back"
-          @close-requested=${() => this.router.goto('/home/')}
-        >
-          <sl-card>
-            <my-profile style="flex: 1"></my-profile>
-          </sl-card>
-        </overlay-page>`,
-    },
-  ]);
 
   @provide({ context: isMobileContext })
   @property()
@@ -101,7 +71,7 @@ export class HolochainApp extends SignalWatcher(LitElement) {
     return html`
       <app-client-context .client=${this._client}>
         <profile-prompt style="flex: 1;">
-          ${this.router.outlet()}
+          <home-page style="flex: 1"></home-page>
         </profile-prompt>
       </app-client-context>
     `;

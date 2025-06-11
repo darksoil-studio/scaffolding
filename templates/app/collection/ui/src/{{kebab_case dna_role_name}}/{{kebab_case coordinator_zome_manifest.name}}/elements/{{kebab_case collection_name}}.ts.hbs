@@ -1,4 +1,4 @@
-import { LitElement, html } from 'lit';
+import { LitElement, html, css } from 'lit';
 import { state, customElement, property } from 'lit/decorators.js';
 import { AgentPubKey, EntryHash, ActionHash, Record } from '@holochain/client';
 import { SignalWatcher } from '@darksoil-studio/holochain-signals';
@@ -83,5 +83,9 @@ export class {{pascal_case collection_name}} extends SignalWatcher(LitElement) {
     }
   }
   
-  static styles = appStyles;
+  static styles = [appStyles, css`
+    :host {
+      display: flex;
+    }
+  `];
 }

@@ -12,7 +12,7 @@ import './{{kebab_case dna_role_name}}/{{kebab_case coordinator_zome_manifest.na
       render: () => html`<overlay-page
         .title=${msg("Create {{title_case entry_type.name}}")}
         icon="close"
-        @close-requested=${() => this.router.goto('/home/')}
+        @close-requested=${() => this.router.goto('/')}
       >
         <create-{{kebab_case entry_type.name}}
           @{{kebab_case entry_type.name}}-created=${(e: CustomEvent) => this.router.goto(`/{{kebab_case entry_type.name}}/${encodeHashToBase64(e.detail.{{camel_case entry_type.name}}Hash)}`)}
@@ -32,7 +32,7 @@ import './{{kebab_case dna_role_name}}/{{kebab_case coordinator_zome_manifest.na
         return html`<overlay-page
             .title=${title}
             icon="back"
-            @close-requested=${() => this.router.goto('/home/')}
+            @close-requested=${() => this.router.goto('/')}
           >
             <{{kebab_case entry_type.name}}-detail
               .{{camel_case entry_type.name}}Hash=${decodeHashFromBase64(params.{{camel_case entry_type.name}}Hash!)}
