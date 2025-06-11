@@ -7,6 +7,12 @@ import './{{kebab_case dna_role_name}}/{{kebab_case coordinator_zome_manifest.na
       path: "/{{kebab_case collection_name}}",
       render: () => html`
         <{{kebab_case collection_name}}
+          style=${styleMap({
+            width: this.isMobile ? '100%' : '600px',
+            'align-self': 'center',
+            margin: '16px',
+          })}
+          style="flex: 1"
           @{{kebab_case referenceable.name}}-selected=${(e: CustomEvent) => this.router.goto(`/{{kebab_case referenceable.name}}/${encodeHashToBase64(e.detail.{{camel_case referenceable.name}}Hash)}`)}
         >
         </{{kebab_case collection_name}}>
