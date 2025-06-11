@@ -5,11 +5,12 @@ import { customElement } from "lit/decorators.js";
 import { EntryRecord } from "@darksoil-studio/holochain-utils";
 import { consume } from "@lit/context";
 import { msg } from "@lit/localize";
-import { AppClient } from '@holochain/client'
+import { AppClient, encodeHashToBase64, decodeHashFromBase64 } from "@holochain/client";
 
 import '@darksoil-studio/holochain-elements/dist/elements/display-error.js';
 import '@darksoil-studio/profiles-provider/dist/elements/agent-avatar.js';
 
+import './overlay-page.js';
 import { appStyles } from './app-styles.js';
 
 @customElement("home-page")
