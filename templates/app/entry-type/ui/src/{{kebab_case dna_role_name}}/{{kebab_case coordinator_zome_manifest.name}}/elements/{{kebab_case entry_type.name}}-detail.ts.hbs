@@ -93,10 +93,16 @@ export class {{pascal_case entry_type.name}}Detail extends SignalWatcher(LitElem
           {{#if widget}}	  
           <div class="column" style="gap: 8px;">
 	        <span><strong>${msg("{{title_case field_name}}")}</strong></span>
-            {{#if (not (eq cardinality "vector") )}}
- 	        <span style="white-space: pre-line">{{> (concat field_type.type "/" widget "/detail/render") field_name=field_name variable_to_read=(concat "entryRecord.entry." (snake_case field_name) ) }}</span>
-            {{else}}
+            {{#if (eq cardinality "vector")}}
               {{> Vec/detail/render variable_to_read=(concat "entryRecord.entry." (snake_case field_name) ) field_name=field_name field_type=field_type widget=widget }}
+            {{else}}
+              {{#if (eq cardinality "option")}}
+ 	        ${ {{(concat "entryRecord.entry." (snake_case field_name))}} ? html`
+              <span style="white-space: pre-line">{{> (concat field_type.type "/" widget "/detail/render") field_name=field_name variable_to_read=(concat "entryRecord.entry." (snake_case field_name) ) }}</span>
+            `: html`` }
+              {{else}}
+ 	        <span style="white-space: pre-line">{{> (concat field_type.type "/" widget "/detail/render") field_name=field_name variable_to_read=(concat "entryRecord.entry." (snake_case field_name) ) }}</span>
+              {{/if}}
             {{/if}}
 	  </div>
 
