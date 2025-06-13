@@ -86,25 +86,31 @@ export class {{pascal_case entry_type.name}}Detail extends SignalWatcher(LitElem
             {{/if}}
           </div>
 
-	{{#each entry_type.fields}}
-          {{#if widget}}	  
+{{#each entry_type.fields}}
+  {{#if widget}}
+    {{#if (eq cardinality "vector")}}
           <div class="column" style="gap: 8px;">
 	        <span><strong>${msg("{{title_case field_name}}")}</strong></span>
-            {{#if (eq cardinality "vector")}}
-              {{> Vec/detail/render variable_to_read=(concat "entryRecord.entry." (snake_case field_name) ) field_name=field_name field_type=field_type widget=widget }}
-            {{else}}
-              {{#if (eq cardinality "option")}}
- 	        ${ {{(concat "entryRecord.entry." (snake_case field_name))}} ? html`
+      {{> Vec/detail/render variable_to_read=(concat "entryRecord.entry." (snake_case field_name) ) field_name=field_name field_type=field_type widget=widget }}
+          </div>
+    {{else}}
+      {{#if (eq cardinality "option")}}
+          ${ {{(concat "entryRecord.entry." (snake_case field_name))}} ? html`
+            <div class="column" style="gap: 8px;">
+      	    <span><strong>${msg("{{title_case field_name}}")}</strong></span>
               <span style="white-space: pre-line">{{> (concat field_type.type "/" widget "/detail/render") field_name=field_name variable_to_read=(concat "entryRecord.entry." (snake_case field_name) ) }}</span>
-            `: html`` }
-              {{else}}
- 	        <span style="white-space: pre-line">{{> (concat field_type.type "/" widget "/detail/render") field_name=field_name variable_to_read=(concat "entryRecord.entry." (snake_case field_name) ) }}</span>
-              {{/if}}
-            {{/if}}
-	  </div>
+            </div>
+          `: html`` }
+      {{else}}
+          <div class="column" style="gap: 8px;">
+            <span><strong>${msg("{{title_case field_name}}")}</strong></span>
+            <span style="white-space: pre-line">{{> (concat field_type.type "/" widget "/detail/render") field_name=field_name variable_to_read=(concat "entryRecord.entry." (snake_case field_name) ) }}</span>
+          </div>
+      {{/if}}
+    {{/if}}
 
- 	  {{/if}}
-	{{/each}}
+  {{/if}}
+{{/each}}
       </div>
       </sl-card>
     `;
