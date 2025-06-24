@@ -17,7 +17,10 @@
           (craneLib.path ../../.);
         doCheck = false;
         buildInputs =
-          inputs.holochain-nix-builders.dependencies.${system}.holochain.buildInputs;
+          inputs.holochain-nix-builders.dependencies.${system}.holochain.buildInputs
+          ++ [ pkgs.openssl ];
+        nativeBuildInputs = [ pkgs.pkg-config ];
+        LIBCLANG_PATH = "${pkgs.llvmPackages_18.libclang.lib}/lib";
         cargoExtraArgs = "--locked --package scaffold_zome_module";
       };
     in craneLib.buildPackage (commonArgs // {
