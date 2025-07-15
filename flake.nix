@@ -8,6 +8,7 @@
 
     holochain-nix-builders.url =
       "github:darksoil-studio/holochain-nix-builders/main-0.5";
+    holochain-nix-builders.inputs.holonix.follows = "holonix";
   };
 
   nixConfig = {
